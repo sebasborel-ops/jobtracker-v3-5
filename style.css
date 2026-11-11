@@ -1,3 +1,5 @@
+/* VERSION : V3.5.2 */
+
 *{
     margin:0;
     padding:0;
@@ -17,31 +19,32 @@ body{
     overflow:hidden;
 }
 
-/* =======================================
-   EN-TETE
-======================================= */
+/* =========================
+   BARRE HAUTE FIXE
+========================= */
 
 .topbar{
 
     position:sticky;
     top:0;
+    z-index:3000;
 
-    z-index:2000;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
     gap:20px;
+
+    align-items:center;
 
     background:white;
 
-    padding:15px 20px;
+    padding:15px;
 
     border-radius:12px;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-
     margin-bottom:10px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 h1{
@@ -51,40 +54,83 @@ h1{
 
 .today-date{
     margin-top:4px;
-    color:#666;
     font-size:14px;
+    color:#666;
+}
+
+/* =========================
+   ACTIONS HAUT
+========================= */
+
+.top-actions{
+
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.save-btn-top{
+
+    border:none;
+
+    background:#2e7d32;
+
+    color:white;
+
+    padding:10px 16px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+.save-btn-top:hover{
+    opacity:.9;
 }
 
 .legend-btn{
+
     border:none;
-    border-radius:6px;
+
     background:#4B3F35;
+
     color:white;
-    padding:8px 12px;
+
+    padding:10px 16px;
+
+    border-radius:8px;
+
     cursor:pointer;
 }
 
-/* =======================================
-   STATS
-======================================= */
+/* =========================
+   STATISTIQUES
+========================= */
 
 .top-stats{
+
     display:flex;
-    gap:10px;
+
+    justify-content:center;
+
     flex-wrap:wrap;
+
+    gap:10px;
 }
 
 .mini-stat{
 
-    background:#f5f5f5;
+    background:#f3f3f3;
 
     border-radius:8px;
 
-    min-width:90px;
-
-    padding:8px 10px;
+    padding:8px 12px;
 
     text-align:center;
+
+    min-width:95px;
 
     cursor:pointer;
 
@@ -92,32 +138,40 @@ h1{
 }
 
 .mini-stat:hover{
-    background:#ececec;
+
+    background:#e6e6e6;
 }
 
 .mini-stat span{
+
     display:block;
+
     font-size:12px;
+
     color:#666;
 }
 
 .mini-stat strong{
+
     font-size:18px;
 }
 
-/* =======================================
+/* =========================
    BARRE ANNULATION
-======================================= */
+========================= */
 
 .undo-bar{
 
     display:none;
 
     justify-content:center;
+
     align-items:center;
+
     gap:15px;
 
-    background:#323232;
+    background:#333;
+
     color:white;
 
     border-radius:10px;
@@ -135,16 +189,16 @@ h1{
 
     color:black;
 
-    border-radius:6px;
-
     padding:5px 10px;
+
+    border-radius:6px;
 
     cursor:pointer;
 }
 
-/* =======================================
+/* =========================
    LAYOUT
-======================================= */
+========================= */
 
 .main-layout{
 
@@ -154,18 +208,18 @@ h1{
 
     gap:15px;
 
-    height:calc(100vh - 135px);
+    height:calc(100vh - 140px);
 }
 
-/* =======================================
-   PANNEAU GAUCHE
-======================================= */
+/* =========================
+   FORMULAIRE
+========================= */
 
 .left-panel{
 
-    height:100%;
-
     overflow-y:auto;
+
+    height:100%;
 
     padding-right:6px;
 }
@@ -178,14 +232,10 @@ h1{
 
     padding:15px;
 
-    min-height:100%;
-
     box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
 
-/* =======================================
-   FORMULAIRE
-======================================= */
+    min-height:100%;
+}
 
 .form-grid{
 
@@ -207,7 +257,7 @@ h1{
 
     font-weight:bold;
 
-    margin-bottom:3px;
+    margin-bottom:4px;
 }
 
 input,
@@ -218,16 +268,16 @@ textarea{
 
     padding:8px;
 
-    font-size:15px;
-
     border:1px solid #d8d8d8;
 
     border-radius:6px;
+
+    font-size:15px;
 }
 
 textarea{
 
-    min-height:90px;
+    min-height:100px;
 
     resize:vertical;
 }
@@ -256,61 +306,30 @@ textarea{
 }
 
 .date-row input:first-child{
-
     width:60px;
 }
 
 .date-row input:nth-child(2){
-
     width:60px;
 }
 
 .date-row input:last-child{
-
     width:85px;
 }
 
-/* =======================================
-   BOUTONS
-======================================= */
-
-.buttons{
-
-    margin-top:15px;
-}
-
-.save-btn{
-
-    width:100%;
-
-    border:none;
-
-    border-radius:6px;
-
-    padding:12px;
-
-    background:#6F5C4C;
-
-    color:white;
-
-    cursor:pointer;
-
-    font-size:15px;
-}
-
-.save-btn:hover{
-    opacity:.9;
-}
+/* =========================
+   ACTIONS BAS
+========================= */
 
 .actions{
-
-    margin-top:15px;
 
     display:flex;
 
     flex-direction:column;
 
     gap:8px;
+
+    margin-top:15px;
 }
 
 .actions button{
@@ -318,22 +337,9 @@ textarea{
     padding:8px;
 }
 
-/* =======================================
-   PIECES JOINTES
-======================================= */
-
-#attachmentList{
-
-    margin-top:8px;
-
-    font-size:13px;
-
-    color:#666;
-}
-
-/* =======================================
-   PANNEAU DROIT
-======================================= */
+/* =========================
+   RECHERCHE FIXE
+========================= */
 
 .right-panel{
 
@@ -344,17 +350,13 @@ textarea{
     padding-right:6px;
 }
 
-/* =======================================
-   RECHERCHE FIXE
-======================================= */
-
 .search-box{
 
     position:sticky;
 
     top:0;
 
-    z-index:100;
+    z-index:200;
 
     background:white;
 
@@ -362,14 +364,14 @@ textarea{
 
     border-radius:12px;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-
     margin-bottom:12px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-/* =======================================
+/* =========================
    CARTES
-======================================= */
+========================= */
 
 .cards-container{
 
@@ -392,9 +394,9 @@ textarea{
 
     padding:12px;
 
-    cursor:pointer;
-
     box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+    cursor:pointer;
 
     transition:.15s;
 }
@@ -424,7 +426,9 @@ textarea{
 
 .status-icon{
 
-    font-size:18px;
+    font-size:20px;
+
+    cursor:help;
 }
 
 .line{
@@ -434,33 +438,57 @@ textarea{
     margin-bottom:3px;
 }
 
+/* =========================
+   MENU RAPIDE STATUT
+========================= */
+
+.quick-status{
+
+    width:100%;
+
+    margin-top:8px;
+
+    margin-bottom:8px;
+}
+
+.quick-status select{
+
+    font-size:13px;
+
+    background:#fafafa;
+}
+
+/* =========================
+   ACTIONS CARTE
+========================= */
+
 .card-actions{
 
     display:flex;
 
     justify-content:flex-end;
 
-    margin-top:10px;
+    margin-top:8px;
 }
 
 .delete-btn{
 
     border:none;
 
-    background:#DC3545;
+    background:#dc3545;
 
     color:white;
 
-    border-radius:6px;
-
     padding:6px 12px;
+
+    border-radius:6px;
 
     cursor:pointer;
 }
 
-/* =======================================
+/* =========================
    LEGENDE
-======================================= */
+========================= */
 
 .legend-modal{
 
@@ -472,7 +500,7 @@ textarea{
 
     background:rgba(0,0,0,.45);
 
-    z-index:5000;
+    z-index:6000;
 }
 
 .legend-content{
@@ -490,9 +518,11 @@ textarea{
     margin:80px auto;
 }
 
-.legend-content h3{
+.legend-content ul{
 
-    margin-bottom:12px;
+    margin-left:20px;
+
+    margin-top:10px;
 }
 
 .legend-content li{
@@ -500,27 +530,19 @@ textarea{
     margin-bottom:6px;
 }
 
-.legend-content button{
-
-    margin-top:10px;
-
-    padding:8px 12px;
-}
-
-/* =======================================
+/* =========================
    SCROLLBARS
-======================================= */
+========================= */
 
 .left-panel::-webkit-scrollbar,
 .right-panel::-webkit-scrollbar{
-
     width:10px;
 }
 
 .left-panel::-webkit-scrollbar-thumb,
 .right-panel::-webkit-scrollbar-thumb{
 
-    background:#c6c6c6;
+    background:#c7c7c7;
 
     border-radius:12px;
 }
@@ -528,12 +550,12 @@ textarea{
 .left-panel::-webkit-scrollbar-track,
 .right-panel::-webkit-scrollbar-track{
 
-    background:#f0f0f0;
+    background:#f2f2f2;
 }
 
-/* =======================================
+/* =========================
    RESPONSIVE
-======================================= */
+========================= */
 
 @media(max-width:1100px){
 
@@ -555,19 +577,28 @@ textarea{
 
         overflow:visible;
     }
+
+    .topbar{
+
+        grid-template-columns:1fr;
+    }
 }
 
 @media(max-width:700px){
 
-    .topbar{
-
-        flex-direction:column;
-
-        align-items:flex-start;
-    }
-
     .cards-container{
 
         grid-template-columns:1fr;
+    }
+
+    .top-actions{
+
+        width:100%;
+    }
+
+    .save-btn-top,
+    .legend-btn{
+
+        flex:1;
     }
 }
