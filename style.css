@@ -4,27 +4,44 @@
     box-sizing:border-box;
 }
 
+html,
+body{
+    height:100%;
+}
+
 body{
     font-family:Arial,sans-serif;
     background:#F7F3ED;
     color:#333;
     padding:12px;
+    overflow:hidden;
 }
 
-/* =======================
-   BANDEAU SUPERIEUR
-======================= */
+/* =======================================
+   EN-TETE
+======================================= */
 
 .topbar{
+
+    position:sticky;
+    top:0;
+
+    z-index:2000;
+
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:20px;
+
     background:white;
-    border-radius:12px;
+
     padding:15px 20px;
-    margin-bottom:15px;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
+
+    border-radius:12px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+    margin-bottom:10px;
 }
 
 h1{
@@ -34,26 +51,22 @@ h1{
 
 .today-date{
     margin-top:4px;
-    font-size:14px;
     color:#666;
+    font-size:14px;
 }
 
 .legend-btn{
-    padding:8px 12px;
     border:none;
     border-radius:6px;
     background:#4B3F35;
     color:white;
+    padding:8px 12px;
     cursor:pointer;
 }
 
-.legend-btn:hover{
-    opacity:.9;
-}
-
-/* =======================
+/* =======================================
    STATS
-======================= */
+======================================= */
 
 .top-stats{
     display:flex;
@@ -62,16 +75,24 @@ h1{
 }
 
 .mini-stat{
-    background:#f4f4f4;
+
+    background:#f5f5f5;
+
     border-radius:8px;
-    padding:8px 12px;
+
+    min-width:90px;
+
+    padding:8px 10px;
+
     text-align:center;
+
     cursor:pointer;
+
     transition:.2s;
 }
 
 .mini-stat:hover{
-    background:#e7e7e7;
+    background:#ececec;
 }
 
 .mini-stat span{
@@ -84,339 +105,469 @@ h1{
     font-size:18px;
 }
 
-/* =======================
+/* =======================================
+   BARRE ANNULATION
+======================================= */
+
+.undo-bar{
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+
+    background:#323232;
+    color:white;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    margin-bottom:10px;
+}
+
+.undo-bar button{
+
+    border:none;
+
+    background:white;
+
+    color:black;
+
+    border-radius:6px;
+
+    padding:5px 10px;
+
+    cursor:pointer;
+}
+
+/* =======================================
    LAYOUT
-======================= */
+======================================= */
 
 .main-layout{
+
     display:grid;
+
     grid-template-columns:320px 1fr;
+
     gap:15px;
-    align-items:start;
+
+    height:calc(100vh - 135px);
 }
+
+/* =======================================
+   PANNEAU GAUCHE
+======================================= */
 
 .left-panel{
-    position:sticky;
-    top:10px;
-}
 
-.right-panel{
-    min-width:0;
-}
+    height:100%;
 
-/* =======================
-   PANNEAU GAUCHE
-======================= */
+    overflow-y:auto;
+
+    padding-right:6px;
+}
 
 .panel{
+
     background:white;
+
     border-radius:12px;
+
     padding:15px;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
+
+    min-height:100%;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-.panel h2{
-    margin-bottom:10px;
-}
-
-.panel h3{
-    margin-top:12px;
-    margin-bottom:10px;
-}
-
-/* =======================
+/* =======================================
    FORMULAIRE
-======================= */
+======================================= */
 
 .form-grid{
+
     display:grid;
+
     gap:8px;
 }
 
 .field{
+
     display:flex;
+
     flex-direction:column;
 }
 
 .field label{
+
     font-size:13px;
+
     font-weight:bold;
+
     margin-bottom:3px;
 }
 
 input,
 select,
 textarea{
+
     width:100%;
-    border:1px solid #d8d8d8;
-    border-radius:6px;
+
     padding:8px;
+
     font-size:15px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:6px;
 }
 
 textarea{
+
     min-height:90px;
+
     resize:vertical;
 }
 
 .dates-section{
+
     display:flex;
+
     flex-direction:column;
+
     gap:8px;
+
+    margin-top:10px;
 }
 
 .date-row{
+
     display:flex;
+
     gap:5px;
 }
 
 .date-row input{
+
     text-align:center;
 }
 
 .date-row input:first-child{
+
     width:60px;
 }
 
 .date-row input:nth-child(2){
+
     width:60px;
 }
 
 .date-row input:last-child{
+
     width:85px;
 }
 
+/* =======================================
+   BOUTONS
+======================================= */
+
 .buttons{
+
     margin-top:15px;
 }
 
 .save-btn{
+
     width:100%;
-    padding:10px;
+
     border:none;
+
     border-radius:6px;
+
+    padding:12px;
+
     background:#6F5C4C;
+
     color:white;
+
     cursor:pointer;
+
+    font-size:15px;
 }
 
 .save-btn:hover{
-    opacity:.95;
+    opacity:.9;
 }
-
-/* =======================
-   PIECES JOINTES
-======================= */
-
-#attachmentList{
-    margin-top:10px;
-    font-size:13px;
-    color:#555;
-}
-
-#attachmentList div{
-    margin-bottom:4px;
-}
-
-/* =======================
-   ACTIONS
-======================= */
 
 .actions{
+
     margin-top:15px;
+
     display:flex;
+
     flex-direction:column;
+
     gap:8px;
 }
 
 .actions button{
+
     padding:8px;
 }
 
-/* =======================
-   RECHERCHE
-======================= */
+/* =======================================
+   PIECES JOINTES
+======================================= */
 
-.search-box{
-    background:white;
-    padding:10px;
-    border-radius:12px;
-    margin-bottom:12px;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
+#attachmentList{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    color:#666;
 }
 
-/* =======================
+/* =======================================
+   PANNEAU DROIT
+======================================= */
+
+.right-panel{
+
+    height:100%;
+
+    overflow-y:auto;
+
+    padding-right:6px;
+}
+
+/* =======================================
+   RECHERCHE FIXE
+======================================= */
+
+.search-box{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
+    background:white;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+    margin-bottom:12px;
+}
+
+/* =======================================
    CARTES
-======================= */
+======================================= */
 
 .cards-container{
+
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(320px,1fr)
+        );
+
     gap:12px;
 }
 
 .card{
+
     background:white;
+
     border-radius:12px;
+
     padding:12px;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
+
     cursor:pointer;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
     transition:.15s;
 }
 
 .card:hover{
+
     transform:translateY(-2px);
 }
 
 .card-header{
+
     display:flex;
+
     align-items:center;
+
     gap:8px;
-    margin-bottom:10px;
+
+    margin-bottom:8px;
 }
 
 .card-title{
-    font-size:15px;
+
     font-weight:bold;
-    line-height:1.3;
+
+    font-size:15px;
+}
+
+.status-icon{
+
+    font-size:18px;
 }
 
 .line{
-    margin-bottom:3px;
+
     font-size:14px;
+
+    margin-bottom:3px;
 }
-
-/* =======================
-   STATUTS
-======================= */
-
-.status-icon{
-    font-size:18px;
-    flex-shrink:0;
-}
-
-.status-send{
-    color:#DDAA00;
-}
-
-.status-wait{
-    color:#3377FF;
-}
-
-.status-roster{
-    color:#8C44FF;
-}
-
-.status-pre{
-    color:#0095FF;
-}
-
-.status-test{
-    color:#FF8800;
-}
-
-.status-interview{
-    color:#00AA55;
-}
-
-.status-offer{
-    color:#00BB44;
-}
-
-.status-accepted{
-    color:#00AA00;
-}
-
-.status-refused{
-    color:#DD2222;
-}
-
-.status-withdrawn{
-    color:#555555;
-}
-
-/* =======================
-   BOUTONS CARTE
-======================= */
 
 .card-actions{
-    margin-top:10px;
+
     display:flex;
+
     justify-content:flex-end;
+
+    margin-top:10px;
 }
 
 .delete-btn{
+
     border:none;
-    border-radius:6px;
+
     background:#DC3545;
+
     color:white;
-    padding:6px 10px;
+
+    border-radius:6px;
+
+    padding:6px 12px;
+
     cursor:pointer;
 }
 
-/* =======================
-   FENETRE STATUTS
-======================= */
+/* =======================================
+   LEGENDE
+======================================= */
 
 .legend-modal{
+
     display:none;
+
     position:fixed;
+
     inset:0;
+
     background:rgba(0,0,0,.45);
-    z-index:1000;
+
+    z-index:5000;
 }
 
 .legend-content{
+
     background:white;
-    width:400px;
+
+    width:420px;
+
     max-width:95%;
-    border-radius:12px;
+
     padding:20px;
-    margin:100px auto;
+
+    border-radius:12px;
+
+    margin:80px auto;
 }
 
 .legend-content h3{
-    margin-bottom:10px;
-}
 
-.legend-content ul{
-    margin-left:20px;
-    margin-bottom:15px;
+    margin-bottom:12px;
 }
 
 .legend-content li{
+
     margin-bottom:6px;
 }
 
 .legend-content button{
+
+    margin-top:10px;
+
     padding:8px 12px;
 }
 
-/* =======================
+/* =======================================
+   SCROLLBARS
+======================================= */
+
+.left-panel::-webkit-scrollbar,
+.right-panel::-webkit-scrollbar{
+
+    width:10px;
+}
+
+.left-panel::-webkit-scrollbar-thumb,
+.right-panel::-webkit-scrollbar-thumb{
+
+    background:#c6c6c6;
+
+    border-radius:12px;
+}
+
+.left-panel::-webkit-scrollbar-track,
+.right-panel::-webkit-scrollbar-track{
+
+    background:#f0f0f0;
+}
+
+/* =======================================
    RESPONSIVE
-======================= */
+======================================= */
 
 @media(max-width:1100px){
 
+    body{
+        overflow:auto;
+    }
+
     .main-layout{
+
         grid-template-columns:1fr;
+
+        height:auto;
     }
 
-    .left-panel{
-        position:static;
-    }
+    .left-panel,
+    .right-panel{
 
+        height:auto;
+
+        overflow:visible;
+    }
 }
 
 @media(max-width:700px){
 
     .topbar{
+
         flex-direction:column;
+
         align-items:flex-start;
     }
 
     .cards-container{
+
         grid-template-columns:1fr;
     }
-
 }
