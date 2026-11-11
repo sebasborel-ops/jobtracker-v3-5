@@ -1,10 +1,12 @@
+<!-- VERSION : V3.5.2 -->
+
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobTracker V3.5.1</title>
+    <title>JobTracker V3.5.2</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,7 +15,7 @@
 <header class="topbar">
 
     <div>
-        <h1>JobTracker V3.5.1</h1>
+        <h1>JobTracker V3.5.2</h1>
         <div id="todayDate" class="today-date"></div>
     </div>
 
@@ -46,9 +48,26 @@
 
     </div>
 
-    <button id="legendBtn" class="legend-btn">
-        ❔ Statuts
-    </button>
+    <div class="top-actions">
+
+        <button
+            id="saveBtn"
+            class="save-btn-top"
+            onclick="addCandidate()">
+
+            💾 Ajouter
+
+        </button>
+
+        <button
+            id="legendBtn"
+            class="legend-btn">
+
+            ❔ Statuts
+
+        </button>
+
+    </div>
 
 </header>
 
@@ -215,19 +234,6 @@
             </div>
 
             <div id="attachmentList"></div>
-
-            <div class="buttons">
-
-                <button
-                    id="saveBtn"
-                    class="save-btn"
-                    onclick="addCandidate()">
-
-                    Ajouter
-
-                </button>
-
-            </div>
 
             <div class="actions">
 
