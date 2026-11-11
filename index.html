@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JobTracker V3.5</title>
-
+    <title>JobTracker V3.5.1</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,78 +13,54 @@
 <header class="topbar">
 
     <div>
-
-        <h1>JobTracker V3.5</h1>
-
+        <h1>JobTracker V3.5.1</h1>
         <div id="todayDate" class="today-date"></div>
-
     </div>
 
     <div class="top-stats">
 
-        <div
-            class="mini-stat"
-            onclick="setFilter('all')">
-
+        <div class="mini-stat" onclick="setFilter('all')">
             <span>Total</span>
-
             <strong id="totalCount">0</strong>
-
         </div>
 
-        <div
-            class="mini-stat"
-            onclick="setFilter('a_envoyer')">
-
+        <div class="mini-stat" onclick="setFilter('a_envoyer')">
             <span>À envoyer</span>
-
             <strong id="todoCount">0</strong>
-
         </div>
 
-        <div
-            class="mini-stat"
-            onclick="setFilter('process')">
-
+        <div class="mini-stat" onclick="setFilter('process')">
             <span>En processus</span>
-
             <strong id="processCount">0</strong>
-
         </div>
 
-        <div
-            class="mini-stat"
-            onclick="setFilter('offer')">
-
+        <div class="mini-stat" onclick="setFilter('offer')">
             <span>Offres</span>
-
             <strong id="offerCount">0</strong>
-
         </div>
 
-        <div
-            class="mini-stat"
-            onclick="setFilter('refus')">
-
+        <div class="mini-stat" onclick="setFilter('refus')">
             <span>Refus</span>
-
             <strong id="refusCount">0</strong>
-
         </div>
 
     </div>
 
-    <button
-        id="legendBtn"
-        class="legend-btn">
-
+    <button id="legendBtn" class="legend-btn">
         ❔ Statuts
-
     </button>
 
 </header>
 
-<!-- LEGENDE -->
+<div id="undoBar" class="undo-bar">
+
+    <span>Candidature supprimée</span>
+
+    <button onclick="restoreDeletedJob()">
+        Annuler
+    </button>
+
+</div>
 
 <div id="legendModal" class="legend-modal">
 
@@ -94,7 +69,6 @@
         <h3>Signification des statuts</h3>
 
         <ul>
-
             <li>🟡 À envoyer</li>
             <li>🔵 En attente</li>
             <li>🟣 Roster</li>
@@ -105,14 +79,10 @@
             <li>✅ Offre acceptée</li>
             <li>🔴 Refus</li>
             <li>⚫ Retirée</li>
-
         </ul>
 
-        <button
-            id="closeLegend">
-
+        <button id="closeLegend">
             Fermer
-
         </button>
 
     </div>
@@ -121,64 +91,39 @@
 
 <main class="main-layout">
 
-    <!-- FORMULAIRE -->
-
     <aside class="left-panel">
 
         <div class="panel">
 
-            <h2>Candidature</h2>
+            <h2 id="formTitle">
+                Nouvelle candidature
+            </h2>
 
             <div class="form-grid">
 
                 <div class="field">
-
                     <label>Employeur</label>
-
-                    <input
-                        id="employer"
-                        type="text">
-
+                    <input id="employer" type="text">
                 </div>
 
                 <div class="field">
-
                     <label>Poste</label>
-
-                    <input
-                        id="position"
-                        type="text">
-
+                    <input id="position" type="text">
                 </div>
 
                 <div class="field">
-
                     <label>Grade</label>
-
-                    <input
-                        id="grade"
-                        type="text">
-
+                    <input id="grade" type="text">
                 </div>
 
                 <div class="field">
-
                     <label>Localisation</label>
-
-                    <input
-                        id="location"
-                        type="text">
-
+                    <input id="location" type="text">
                 </div>
 
                 <div class="field">
-
                     <label>Lien offre</label>
-
-                    <input
-                        id="jobLink"
-                        type="text">
-
+                    <input id="jobLink" type="text">
                 </div>
 
                 <div class="field">
@@ -188,23 +133,14 @@
                     <select id="status">
 
                         <option>À envoyer</option>
-
                         <option>En attente</option>
-
                         <option>Roster</option>
-
                         <option>Pré-entretien</option>
-
                         <option>Test écrit</option>
-
                         <option>Entretien</option>
-
                         <option>Offre reçue</option>
-
                         <option>Offre acceptée</option>
-
                         <option>Refus</option>
-
                         <option>Retirée</option>
 
                     </select>
@@ -220,61 +156,41 @@
                 <label>Date limite</label>
 
                 <div class="date-row">
-
                     <input id="deadlineDay" maxlength="2" placeholder="JJ">
-
                     <input id="deadlineMonth" maxlength="2" placeholder="MM">
-
                     <input id="deadlineYear" maxlength="4" placeholder="AAAA">
-
                 </div>
 
                 <label>Date candidature</label>
 
                 <div class="date-row">
-
                     <input id="applicationDay" maxlength="2" placeholder="JJ">
-
                     <input id="applicationMonth" maxlength="2" placeholder="MM">
-
                     <input id="applicationYear" maxlength="4" placeholder="AAAA">
-
                 </div>
 
                 <label>Pré-entretien</label>
 
                 <div class="date-row">
-
                     <input id="preDay" maxlength="2" placeholder="JJ">
-
                     <input id="preMonth" maxlength="2" placeholder="MM">
-
                     <input id="preYear" maxlength="4" placeholder="AAAA">
-
                 </div>
 
                 <label>Test écrit</label>
 
                 <div class="date-row">
-
                     <input id="testDay" maxlength="2" placeholder="JJ">
-
                     <input id="testMonth" maxlength="2" placeholder="MM">
-
                     <input id="testYear" maxlength="4" placeholder="AAAA">
-
                 </div>
 
                 <label>Entretien</label>
 
                 <div class="date-row">
-
                     <input id="interviewDay" maxlength="2" placeholder="JJ">
-
                     <input id="interviewMonth" maxlength="2" placeholder="MM">
-
                     <input id="interviewYear" maxlength="4" placeholder="AAAA">
-
                 </div>
 
             </div>
@@ -287,8 +203,6 @@
 
             </div>
 
-            <!-- FUTURES PIECES JOINTES -->
-
             <div class="field">
 
                 <label>Pièces jointes</label>
@@ -300,8 +214,7 @@
 
             </div>
 
-            <div id="attachmentList">
-            </div>
+            <div id="attachmentList"></div>
 
             <div class="buttons">
 
@@ -332,8 +245,6 @@
         </div>
 
     </aside>
-
-    <!-- CARTES -->
 
     <section class="right-panel">
 
