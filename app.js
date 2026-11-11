@@ -2,16 +2,16 @@ let jobs = JSON.parse(localStorage.getItem("jobs")) || [];
 
 let editId = null;
 let currentFilter = "all";
+let deletedJob = null;
+let undoTimer = null;
 
 document.addEventListener("DOMContentLoaded", () => {
 
     initializeDateFields();
-
     showTodayDate();
-
     initLegend();
-
     renderJobs();
+
 });
 
 function showTodayDate() {
@@ -47,25 +47,26 @@ function initLegend() {
     const close =
         document.getElementById("closeLegend");
 
-    btn.onclick = () => {
+    btn.addEventListener("click", () => {
         modal.style.display = "block";
-    };
+    });
 
-    close.onclick = () => {
+    close.addEventListener("click", () => {
         modal.style.display = "none";
-    };
+    });
 
-    modal.onclick = (e) => {
+    modal.addEventListener("click", (e) => {
 
         if (e.target === modal) {
             modal.style.display = "none";
         }
-    };
+    });
 }
 
 function initializeDateFields() {
 
-    const year = new Date().getFullYear();
+    const currentYear =
+        new Date().getFullYear();
 
     [
         "deadlineYear",
@@ -79,7 +80,7 @@ function initializeDateFields() {
             document.getElementById(id);
 
         if (field) {
-            field.value = year;
+            field.value = currentYear;
         }
     });
 
@@ -104,13 +105,15 @@ function autoJump(from, to) {
     const source =
         document.getElementById(from);
 
+    if (!source) return;
+
     source.addEventListener("input", () => {
 
         if (source.value.length >= 2) {
 
             document
                 .getElementById(to)
-                .focus();
+                ?.focus();
         }
     });
 }
@@ -118,15 +121,17 @@ function autoJump(from, to) {
 function buildDate(prefix) {
 
     const day =
-        document.getElementById(prefix + "Day").value;
+        document.getElementById(prefix + "Day")?.value || "";
 
     const month =
-        document.getElementById(prefix + "Month").value;
+        document.getElementById(prefix + "Month")?.value || "";
 
     const year =
-        document.getElementById(prefix + "Year").value;
+        document.getElementById(prefix + "Year")?.value || "";
 
-    if (!day || !month) return "";
+    if (!day || !month) {
+        return "";
+    }
 
     return `${day}/${month}/${year}`;
 }
@@ -155,26 +160,32 @@ function clearForm() {
 
     document.getElementById("saveBtn").textContent =
         "Ajouter";
+
+    const formTitle =
+        document.getElementById("formTitle");
+
+    if (formTitle) {
+        formTitle.textContent =
+            "Nouvelle candidature";
+    }
 }
 
 function addCandidate() {
 
     const employer =
         document.getElementById("employer")
-            .value.trim();
+        .value.trim();
 
     const position =
         document.getElementById("position")
-            .value.trim();
+        .value.trim();
 
     if (!employer) {
-
         alert("Employeur obligatoire");
         return;
     }
 
     if (!position) {
-
         alert("Poste obligatoire");
         return;
     }
@@ -220,8 +231,10 @@ function addCandidate() {
 
     if (editId) {
 
-        jobs = jobs.map(j =>
-            j.id === editId ? job : j
+        jobs = jobs.map(item =>
+            item.id === editId
+                ? job
+                : item
         );
 
     } else {
@@ -268,13 +281,25 @@ function editJob(id) {
 
     document.getElementById("saveBtn").textContent =
         "Enregistrer";
+
+    const formTitle =
+        document.getElementById("formTitle");
+
+    if (formTitle) {
+        formTitle.textContent =
+            "Modification de candidature";
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 }
 
 function deleteJob(id) {
 
-    if (!confirm("Supprimer cette candidature ?")) {
-        return;
-    }
+    deletedJob =
+        jobs.find(job => job.id === id);
 
     jobs =
         jobs.filter(job => job.id !== id);
@@ -282,22 +307,80 @@ function deleteJob(id) {
     saveJobs();
 
     renderJobs();
+
+    showUndoMessage();
+}
+
+function showUndoMessage() {
+
+    const bar =
+        document.getElementById("undoBar");
+
+    if (!bar) return;
+
+    bar.style.display = "flex";
+
+    clearTimeout(undoTimer);
+
+    undoTimer = setTimeout(() => {
+
+        bar.style.display = "none";
+        deletedJob = null;
+
+    }, 5000);
+}
+
+function restoreDeletedJob() {
+
+    if (!deletedJob) return;
+
+    jobs.push(deletedJob);
+
+    saveJobs();
+
+    renderJobs();
+
+    document.getElementById("undoBar")
+        .style.display = "none";
+
+    clearTimeout(undoTimer);
+
+    deletedJob = null;
 }
 
 function getStatusIcon(status) {
 
     switch(status){
 
-        case "À envoyer": return "🟡";
-        case "En attente": return "🔵";
-        case "Roster": return "🟣";
-        case "Pré-entretien": return "🟦";
-        case "Test écrit": return "🟧";
-        case "Entretien": return "🟩";
-        case "Offre reçue": return "🟢";
-        case "Offre acceptée": return "✅";
-        case "Refus": return "🔴";
-        case "Retirée": return "⚫";
+        case "À envoyer":
+            return "🟡";
+
+        case "En attente":
+            return "🔵";
+
+        case "Roster":
+            return "🟣";
+
+        case "Pré-entretien":
+            return "🟦";
+
+        case "Test écrit":
+            return "🟧";
+
+        case "Entretien":
+            return "🟩";
+
+        case "Offre reçue":
+            return "🟢";
+
+        case "Offre acceptée":
+            return "✅";
+
+        case "Refus":
+            return "🔴";
+
+        case "Retirée":
+            return "⚫";
 
         default:
             return "⚪";
@@ -313,7 +396,7 @@ function setFilter(filter) {
 
 function matchesFilter(job) {
 
-    switch(currentFilter) {
+    switch(currentFilter){
 
         case "a_envoyer":
             return job.status === "À envoyer";
@@ -346,10 +429,13 @@ function renderJobs() {
     const container =
         document.getElementById("cardsContainer");
 
+    if (!container) return;
+
     const search =
-        document.getElementById("searchInput")
-            .value
-            .toLowerCase();
+        (
+            document.getElementById("searchInput")
+            ?.value || ""
+        ).toLowerCase();
 
     container.innerHTML = "";
 
@@ -366,80 +452,79 @@ function renderJobs() {
             ).toLowerCase();
 
             return text.includes(search);
-
         })
         .forEach(job => {
+
+            const icon =
+                getStatusIcon(job.status);
 
             const card =
                 document.createElement("div");
 
             card.className = "card";
 
-            card.onclick =
-                () => editJob(job.id);
-
-            const icon =
-                getStatusIcon(job.status);
+            card.addEventListener(
+                "click",
+                () => editJob(job.id)
+            );
 
             card.innerHTML = `
 
-                <div class="card-header">
+            <div class="card-header">
 
-                    <div class="status-icon">
-                        ${icon}
-                    </div>
-
-                    <div class="card-title">
-
-                        ${job.employer}
-                        •
-                        ${job.position}
-                        •
-                        ${job.grade || "-"}
-
-                    </div>
-
+                <div class="status-icon">
+                    ${icon}
                 </div>
 
-                <div class="line">
-                    ${job.location || "-"}
+                <div class="card-title">
+                    ${job.employer}
+                    •
+                    ${job.position}
+                    •
+                    ${job.grade || "-"}
                 </div>
 
-                <div class="line">
-                    Limite : ${job.deadline || "-"}
-                </div>
+            </div>
 
-                <div class="line">
-                    Envoi : ${job.applicationDate || "-"}
-                </div>
+            <div class="line">
+                ${job.location || "-"}
+            </div>
 
-                <div class="line">
-                    Pré-entretien : ${job.preInterview || "-"}
-                </div>
+            <div class="line">
+                Limite : ${job.deadline || "-"}
+            </div>
 
-                <div class="line">
-                    Test écrit : ${job.writtenTest || "-"}
-                </div>
+            <div class="line">
+                Envoi : ${job.applicationDate || "-"}
+            </div>
 
-                <div class="line">
-                    Entretien : ${job.interviewDate || "-"}
-                </div>
+            <div class="line">
+                Pré-entretien : ${job.preInterview || "-"}
+            </div>
 
-                <div class="line">
-                    <strong>${job.status}</strong>
-                </div>
+            <div class="line">
+                Test écrit : ${job.writtenTest || "-"}
+            </div>
 
-                <div class="card-actions">
+            <div class="line">
+                Entretien : ${job.interviewDate || "-"}
+            </div>
 
-                    <button
-                        class="delete-btn"
-                        onclick="event.stopPropagation();deleteJob(${job.id});">
+            <div class="line">
+                <strong>${job.status}</strong>
+            </div>
 
-                        Supprimer
+            <div class="card-actions">
 
-                    </button>
+                <button
+                    class="delete-btn"
+                    onclick="event.stopPropagation();deleteJob(${job.id})">
 
-                </div>
+                    Supprimer
+
+                </button>
+
+            </div>
 
             `;
 
@@ -456,53 +541,44 @@ function updateStats() {
 
     document.getElementById("todoCount")
         .textContent =
-            jobs.filter(j =>
-                j.status === "À envoyer"
-            ).length;
+        jobs.filter(
+            j => j.status === "À envoyer"
+        ).length;
 
     document.getElementById("processCount")
         .textContent =
-            jobs.filter(j =>
-                [
-                    "En attente",
-                    "Roster",
-                    "Pré-entretien",
-                    "Test écrit",
-                    "Entretien"
-                ].includes(j.status)
-            ).length;
+        jobs.filter(
+            j => [
+                "En attente",
+                "Roster",
+                "Pré-entretien",
+                "Test écrit",
+                "Entretien"
+            ].includes(j.status)
+        ).length;
 
     document.getElementById("offerCount")
         .textContent =
-            jobs.filter(j =>
-                [
-                    "Offre reçue",
-                    "Offre acceptée"
-                ].includes(j.status)
-            ).length;
+        jobs.filter(
+            j => [
+                "Offre reçue",
+                "Offre acceptée"
+            ].includes(j.status)
+        ).length;
 
     document.getElementById("refusCount")
         .textContent =
-            jobs.filter(j =>
-                j.status === "Refus"
-            ).length;
+        jobs.filter(
+            j => j.status === "Refus"
+        ).length;
 }
 
 function exportData() {
 
     const blob =
         new Blob(
-            [
-                JSON.stringify(
-                    jobs,
-                    null,
-                    2
-                )
-            ],
-            {
-                type:
-                "application/json"
-            }
+            [JSON.stringify(jobs, null, 2)],
+            { type: "application/json" }
         );
 
     const link =
@@ -512,7 +588,7 @@ function exportData() {
         URL.createObjectURL(blob);
 
     link.download =
-        "jobtracker-v3-5.json";
+        "jobtracker-v3-5-1.json";
 
     link.click();
 }
