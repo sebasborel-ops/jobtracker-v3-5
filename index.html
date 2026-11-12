@@ -4,11 +4,19 @@
 <html lang="fr">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>JobTracker V3.5.3</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
 
 <body>
@@ -19,40 +27,64 @@
 
         <h1>JobTracker V3.5.3</h1>
 
-        <div id="todayDate" class="today-date"></div>
+        <div
+            id="todayDate"
+            class="today-date">
+
+        </div>
 
     </div>
 
     <div class="top-stats">
 
-        <div class="mini-stat" onclick="setFilter('all')">
+        <div
+            class="mini-stat"
+            onclick="setFilter('all')">
+
             <span>Total</span>
+
             <strong id="totalCount">0</strong>
+
         </div>
 
-        <div class="mini-stat" onclick="setFilter('favorites')">
-            <span>Favoris</span>
-            <strong id="favoriteCount">0</strong>
-        </div>
+        <div
+            class="mini-stat"
+            onclick="setFilter('a_envoyer')">
 
-        <div class="mini-stat" onclick="setFilter('a_envoyer')">
             <span>À envoyer</span>
+
             <strong id="todoCount">0</strong>
+
         </div>
 
-        <div class="mini-stat" onclick="setFilter('process')">
+        <div
+            class="mini-stat"
+            onclick="setFilter('process')">
+
             <span>En processus</span>
+
             <strong id="processCount">0</strong>
+
         </div>
 
-        <div class="mini-stat" onclick="setFilter('offer')">
+        <div
+            class="mini-stat"
+            onclick="setFilter('offer')">
+
             <span>Offres</span>
+
             <strong id="offerCount">0</strong>
+
         </div>
 
-        <div class="mini-stat" onclick="setFilter('refus')">
+        <div
+            class="mini-stat"
+            onclick="setFilter('refus')">
+
             <span>Refus</span>
+
             <strong id="refusCount">0</strong>
+
         </div>
 
     </div>
@@ -80,11 +112,16 @@
 
 </header>
 
-<div id="undoBar" class="undo-bar">
+<div
+    id="undoBar"
+    class="undo-bar">
 
-    <span>Candidature supprimée</span>
+    <span>
+        Candidature supprimée
+    </span>
 
-    <button onclick="restoreDeletedJob()">
+    <button
+        onclick="restoreDeletedJob()">
 
         Annuler
 
@@ -92,9 +129,9 @@
 
 </div>
 
-<!-- LEGENDE -->
-
-<div id="legendModal" class="legend-modal">
+<div
+    id="legendModal"
+    class="legend-modal">
 
     <div class="legend-content">
 
@@ -126,8 +163,6 @@
 </div>
 
 <main class="main-layout">
-
-    <!-- FORMULAIRE -->
 
     <aside class="left-panel">
 
@@ -238,36 +273,6 @@
 
                 </div>
 
-                <label>Pré-entretien</label>
-
-                <div class="date-row">
-
-                    <input id="preDay" maxlength="2" placeholder="JJ">
-                    <input id="preMonth" maxlength="2" placeholder="MM">
-                    <input id="preYear" maxlength="4" placeholder="AAAA">
-
-                </div>
-
-                <label>Test écrit</label>
-
-                <div class="date-row">
-
-                    <input id="testDay" maxlength="2" placeholder="JJ">
-                    <input id="testMonth" maxlength="2" placeholder="MM">
-                    <input id="testYear" maxlength="4" placeholder="AAAA">
-
-                </div>
-
-                <label>Entretien</label>
-
-                <div class="date-row">
-
-                    <input id="interviewDay" maxlength="2" placeholder="JJ">
-                    <input id="interviewMonth" maxlength="2" placeholder="MM">
-                    <input id="interviewYear" maxlength="4" placeholder="AAAA">
-
-                </div>
-
             </div>
 
             <div class="field">
@@ -278,11 +283,13 @@
 
             </div>
 
-            <!-- DOCUMENTS PERSISTANTS -->
+            <h3>📎 Documents</h3>
 
             <div class="field">
 
-                <label>Documents</label>
+                <label>
+                    Ajouter des documents
+                </label>
 
                 <input
                     type="file"
@@ -291,7 +298,17 @@
 
             </div>
 
-            <div id="attachmentList">
+            <div
+                id="attachmentList"
+                class="attachment-list">
+
+            </div>
+
+            <div
+                id="attachmentCounter"
+                class="attachment-counter">
+
+                📂 0 document
 
             </div>
 
@@ -313,8 +330,6 @@
         </div>
 
     </aside>
-
-    <!-- CARTES -->
 
     <section class="right-panel">
 
