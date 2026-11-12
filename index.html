@@ -62,4 +62,284 @@
         <button
             id="saveBtn"
             class="save-btn-top"
-            
+            onclick="addCandidate()">
+
+            💾 Ajouter
+
+        </button>
+
+        <button
+            id="legendBtn"
+            class="legend-btn">
+
+            ❔ Statuts
+
+        </button>
+
+    </div>
+
+</header>
+
+<div id="undoBar" class="undo-bar">
+
+    <span>Candidature supprimée</span>
+
+    <button onclick="restoreDeletedJob()">
+
+        Annuler
+
+    </button>
+
+</div>
+
+<!-- LEGENDE -->
+
+<div id="legendModal" class="legend-modal">
+
+    <div class="legend-content">
+
+        <h3>Signification des statuts</h3>
+
+        <ul>
+
+            <li>🟡 À envoyer</li>
+            <li>🔵 En attente</li>
+            <li>🟣 Roster</li>
+            <li>🟦 Pré-entretien</li>
+            <li>🟧 Test écrit</li>
+            <li>🟩 Entretien</li>
+            <li>🟢 Offre reçue</li>
+            <li>✅ Offre acceptée</li>
+            <li>🔴 Refus</li>
+            <li>⚫ Retirée</li>
+
+        </ul>
+
+        <button id="closeLegend">
+
+            Fermer
+
+        </button>
+
+    </div>
+
+</div>
+
+<main class="main-layout">
+
+    <!-- FORMULAIRE -->
+
+    <aside class="left-panel">
+
+        <div class="panel">
+
+            <h2 id="formTitle">
+
+                Nouvelle candidature
+
+            </h2>
+
+            <div class="form-grid">
+
+                <div class="field">
+
+                    <label>Employeur</label>
+
+                    <input
+                        id="employer"
+                        type="text">
+
+                </div>
+
+                <div class="field">
+
+                    <label>Poste</label>
+
+                    <input
+                        id="position"
+                        type="text">
+
+                </div>
+
+                <div class="field">
+
+                    <label>Grade</label>
+
+                    <input
+                        id="grade"
+                        type="text">
+
+                </div>
+
+                <div class="field">
+
+                    <label>Localisation</label>
+
+                    <input
+                        id="location"
+                        type="text">
+
+                </div>
+
+                <div class="field">
+
+                    <label>Lien offre</label>
+
+                    <input
+                        id="jobLink"
+                        type="text">
+
+                </div>
+
+                <div class="field">
+
+                    <label>Statut</label>
+
+                    <select id="status">
+
+                        <option>À envoyer</option>
+                        <option>En attente</option>
+                        <option>Roster</option>
+                        <option>Pré-entretien</option>
+                        <option>Test écrit</option>
+                        <option>Entretien</option>
+                        <option>Offre reçue</option>
+                        <option>Offre acceptée</option>
+                        <option>Refus</option>
+                        <option>Retirée</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <h3>Dates</h3>
+
+            <div class="dates-section">
+
+                <label>Date limite</label>
+
+                <div class="date-row">
+
+                    <input id="deadlineDay" maxlength="2" placeholder="JJ">
+                    <input id="deadlineMonth" maxlength="2" placeholder="MM">
+                    <input id="deadlineYear" maxlength="4" placeholder="AAAA">
+
+                </div>
+
+                <label>Date candidature</label>
+
+                <div class="date-row">
+
+                    <input id="applicationDay" maxlength="2" placeholder="JJ">
+                    <input id="applicationMonth" maxlength="2" placeholder="MM">
+                    <input id="applicationYear" maxlength="4" placeholder="AAAA">
+
+                </div>
+
+                <label>Pré-entretien</label>
+
+                <div class="date-row">
+
+                    <input id="preDay" maxlength="2" placeholder="JJ">
+                    <input id="preMonth" maxlength="2" placeholder="MM">
+                    <input id="preYear" maxlength="4" placeholder="AAAA">
+
+                </div>
+
+                <label>Test écrit</label>
+
+                <div class="date-row">
+
+                    <input id="testDay" maxlength="2" placeholder="JJ">
+                    <input id="testMonth" maxlength="2" placeholder="MM">
+                    <input id="testYear" maxlength="4" placeholder="AAAA">
+
+                </div>
+
+                <label>Entretien</label>
+
+                <div class="date-row">
+
+                    <input id="interviewDay" maxlength="2" placeholder="JJ">
+                    <input id="interviewMonth" maxlength="2" placeholder="MM">
+                    <input id="interviewYear" maxlength="4" placeholder="AAAA">
+
+                </div>
+
+            </div>
+
+            <div class="field">
+
+                <label>Notes</label>
+
+                <textarea id="notes"></textarea>
+
+            </div>
+
+            <!-- DOCUMENTS PERSISTANTS -->
+
+            <div class="field">
+
+                <label>Documents</label>
+
+                <input
+                    type="file"
+                    id="attachments"
+                    multiple>
+
+            </div>
+
+            <div id="attachmentList">
+
+            </div>
+
+            <div class="actions">
+
+                <button onclick="exportData()">
+
+                    Export JSON
+
+                </button>
+
+                <input
+                    type="file"
+                    id="importFile"
+                    onchange="importData(event)">
+
+            </div>
+
+        </div>
+
+    </aside>
+
+    <!-- CARTES -->
+
+    <section class="right-panel">
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="🔍 Rechercher..."
+                onkeyup="renderJobs()">
+
+        </div>
+
+        <section
+            id="cardsContainer"
+            class="cards-container">
+
+        </section>
+
+    </section>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+
+</html>
